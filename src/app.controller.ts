@@ -9,9 +9,9 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  @Get(':id')
-  async getNewUrl(@Param('id') urlshortnerId: string, @Res() res) {
-    let url = await this.appService.getNewUrl(urlshortnerId);
-    return res.redirect(url);
+  @Get(':code')
+  async getNewUrl(@Param('code') urlCode: string, @Res() res) {
+    let url = await this.appService.getNewUrl(urlCode);
+    return res.redirect(`http://${url}`);
   }
 }

@@ -2,16 +2,23 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { URLShortner } from './shortner.model';
-
+import * as shorturl from 'shortid';
 @Injectable()
 export class ShortnerService {
   constructor(
     @InjectModel('urlShortner') private readonly urlModel: Model<URLShortner>,
   ) {}
-  async insertUrl(url: string, userId: string, userTypeId: string) {
+  async insertUrl(
+    url: string,
+
+    userId: string,
+    userTypeId: string,
+  ) {
+    let newUrlCode = shorturl.generate();
     const newUrl = new this.urlModel({
       url,
       userId,
+      urlCode: newUrlCode,
       userTypeId,
     });
     const urlVal = await newUrl.save();

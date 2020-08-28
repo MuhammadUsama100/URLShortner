@@ -13,7 +13,7 @@ export class AppService {
   }
   async getNewUrl(urlShortnerId: string) {
     try {
-      var url = await this.urlModel.findById(urlShortnerId);
+      var url = await this.urlModel.findOne({ urlCode: urlShortnerId });
       let oldUrl = url.url;
       return oldUrl;
     } catch (e) {
