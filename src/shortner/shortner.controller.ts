@@ -6,6 +6,7 @@ import {
   Delete,
   Controller,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ShortnerService } from './shortner.service';
 
@@ -15,18 +16,37 @@ export class ShorterUrlController {
 
   // Post New Url in db
   @Post()
-  async addProduct(
+  async addUrl(
     @Body('url') url: string,
-    @Body('shorterUrl') shorterUrl: string,
     @Body('userId') userId: string,
     @Body('userTypeId') userTypeId: string,
   ) {
-    const newUrl = await this.urlService.insertProduct(
+    const newUrl = await this.urlService.insertUrl(url, userId, userTypeId);
+    return { newCreatedUrl: newUrl };
+  }
+  @Put(':id')
+  async updateUrl(
+    @Param('id') urlShortnerId: string,
+    @Body('url') url: string,
+    @Body('userId') userId: string,
+    @Body('userTypeId') userTypeId: string,
+  ) {
+    let updatedUrl = await this.urlService.updateUrl(
+      urlShortnerId,
       url,
-      shorterUrl,
       userId,
       userTypeId,
     );
-    return { newCreatedUrl: newUrl };
+    return updatedUrl;
+  }
+  // @Get()
+  // async getAllUrl() {
+  //   let urls = await this.urlService.getAllUrl();
+  //   return urls;
+  // }
+  @Delete(':id')
+  async deleteUrlById(@Param('id') urlShortnerId: string) {
+    let msg = await this.urlService.deleteUrl(urlShortnerId);
+    return msg;
   }
 }
