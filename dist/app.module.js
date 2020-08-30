@@ -13,6 +13,7 @@ const app_service_1 = require("./app.service");
 const shortner_module_1 = require("./shortner/shortner.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const shortner_model_1 = require("./shortner/shortner.model");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -23,6 +24,7 @@ AppModule = __decorate([
                 { name: 'urlShortner', schema: shortner_model_1.UrlShortnerSchema },
             ]),
             shortner_module_1.ShortnerModule,
+            user_module_1.UserModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -9,7 +9,7 @@ export class AppService {
     @InjectModel('urlShortner') private readonly urlModel: Model<URLShortner>,
   ) {}
   getHello(): string {
-    return 'Hello usama!';
+    return 'Hello usama HAHAE!';
   }
   async getNewUrl(urlShortnerId: string) {
     try {

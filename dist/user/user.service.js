@@ -12,32 +12,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppService = void 0;
+exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let AppService = class AppService {
-    constructor(urlModel) {
-        this.urlModel = urlModel;
+let UserService = class UserService {
+    constructor(userModel) {
+        this.userModel = userModel;
     }
-    getHello() {
-        return 'Hello usama HAHAE!';
-    }
-    async getNewUrl(urlShortnerId) {
-        try {
-            var url = await this.urlModel.findOne({ urlCode: urlShortnerId });
-            let oldUrl = url.url;
-            return oldUrl;
-        }
-        catch (e) {
-            throw new common_1.NotFoundException('Url Not Found');
-        }
+    async insertUser(fullName, email, passward, userTypeId) {
+        const newUser = new this.userModel({
+            email,
+            fullName,
+            passward,
+            userTypeId,
+        });
+        const createduser = await newUser.save();
+        return createduser;
     }
 };
-AppService = __decorate([
+UserService = __decorate([
     common_1.Injectable(),
-    __param(0, mongoose_1.InjectModel('urlShortner')),
+    __param(0, mongoose_1.InjectModel('User')),
     __metadata("design:paramtypes", [mongoose_2.Model])
-], AppService);
-exports.AppService = AppService;
-//# sourceMappingURL=app.service.js.map
+], UserService);
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map
