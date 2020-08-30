@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ShortnerModule } from './shortner/shortner.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UrlShortnerSchema } from './shortner/shortner.model';
+import { UserModule } from './user/user.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -13,6 +14,7 @@ import { UrlShortnerSchema } from './shortner/shortner.model';
       { name: 'urlShortner', schema: UrlShortnerSchema },
     ]),
     ShortnerModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
